@@ -2,10 +2,19 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
 import pandas as pd
+from pathlib import Path
 
 app = FastAPI(title="Customer Churn Prediction API")
 
-model = joblib.load("churn_pipeline.pkl")
+
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+model_path = BASE_DIR / "models" / "churn_pipeline.pkl"
+
+model = joblib.load(model_path)
+
+# model = joblib.load("models/churn_pipeline.pkl")
 
 
 class Customer(BaseModel):
